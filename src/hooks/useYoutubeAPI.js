@@ -18,7 +18,7 @@ const useYoutubeAPI = (searchTerm) => {
         // console.log(data.result);
         // const youtube = google.youtube({
         //   version: 'v3',
-        //   auth: 'AIzaSyAiCtGHVR3dYknxKxeY0YHm1udkmUC-kuw',
+        //   auth: '',
         //   http2: false,
         // });
         // const videos = await youtube.search.list({
