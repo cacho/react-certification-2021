@@ -24,8 +24,6 @@ function HomePage() {
     if (!isVideoDetailVisible) setIsVideoDetailVisible(!isVideoDetailVisible);
   };
   useEffect(() => {
-    // console.log('---- HOMEPAGE ----');
-    // console.log(searchResult);
     setItems(searchResult?.items);
     if (items) {
       setFilteredList(filterItemsByKind(items, 'video'));
