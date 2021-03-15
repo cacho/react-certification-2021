@@ -1,14 +1,13 @@
 import React from 'react';
 import NavigationBar from '../NavigationBar';
 import Styled from './Layout.styled';
-import ThemeProvider from "../../providers/Theme.provider";
-
+import ThemeProvider from '../../providers/Theme.provider';
 
 function Layout({ children }) {
   return (
     <>
       <Styled.Header data-testid="Layout">
-        <ThemeProvider  >
+        <ThemeProvider>
           <NavigationBar />
         </ThemeProvider>
       </Styled.Header>

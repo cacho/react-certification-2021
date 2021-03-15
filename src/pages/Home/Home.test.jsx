@@ -1,9 +1,8 @@
 import React from 'react';
-import { fireEvent, getByText, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 // import { mockComponent } from 'react-dom/test-utils';
 import Home from './Home.page';
 import SearchProvider from '../../providers/Search.provider';
-import useYoutubeAPI from '../../hooks/useYoutubeAPI';
 import mockuseYoutubeAPI from '../../utils/mocks/youTubeResponse.json';
 
 jest.mock('../../hooks/useYoutubeAPI', () => () => ({

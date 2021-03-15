@@ -13,9 +13,9 @@ function useTheme() {
 function ThemeProvider({ children }) {
   const [selectedTheme, setSelectedTheme] = useState('light');
 
-  const toggleSelectedTheme = useCallback(() =>{
-      setSelectedTheme( selectedTheme === 'light' ? 'dark' : 'light')
-  },[selectedTheme])
+  const toggleSelectedTheme = useCallback(() => {
+    setSelectedTheme(selectedTheme === 'light' ? 'dark' : 'light');
+  }, [selectedTheme]);
 
   return (
     <ThemeContext.Provider

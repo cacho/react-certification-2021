@@ -4,7 +4,7 @@ import useYoutubeAPI from '../../hooks/useYoutubeAPI';
 import { useSearch } from '../../providers/Search.provider';
 // import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
 import { filterItemsByKind } from '../../utils/contenFilter';
-import Styled from './Home.page.styled'
+import Styled from './Home.page.styled';
 
 import VideoDetail from '../../components/VideoDetail';
 
