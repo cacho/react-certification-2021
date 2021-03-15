@@ -11,7 +11,9 @@ const Container = styled.div`
   }
 `;
 const Content = styled.div``;
-const Label = styled.label``;
+const Label = styled.label`
+  text-transform: Capitalize;
+`;
 const Input = styled.input``;
 
 const Styled = { Container, Content, Label, Input };

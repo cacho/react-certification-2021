@@ -4,6 +4,7 @@ import useYoutubeAPI from '../../hooks/useYoutubeAPI';
 import { useSearch } from '../../providers/Search.provider';
 // import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
 import { filterItemsByKind } from '../../utils/contenFilter';
+import Styled from './Home.page.styled'
 
 import VideoDetail from '../../components/VideoDetail';
 
@@ -32,7 +33,7 @@ function HomePage() {
 
   if (loading) return <p>Loading ....</p>;
   return (
-    <section className="container" ref={sectionRef} data-testid="Home">
+    <Styled.Container className="container" ref={sectionRef} data-testid="Home">
       <div className="row">
         <h1>Hello stranger!</h1>
       </div>
@@ -49,7 +50,7 @@ function HomePage() {
           isVideoDetailVisible={isVideoDetailVisible}
         />
       </div>
-    </section>
+    </Styled.Container>
   );
 }
 
