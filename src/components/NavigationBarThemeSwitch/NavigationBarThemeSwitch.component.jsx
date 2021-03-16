@@ -8,16 +8,11 @@ function NavigationBarThemeSwitch() {
     toggleSelectedTheme();
   };
   return (
-    <Styled.Container className="nav-item" data-testid="NavigationBarThemeSwitch">
-      <Styled.Content className="form-check form-switch">
-        <Styled.Label className="form-check-label" htmlFor="themeSwitchOptions">
-          <Styled.Input
-            className="form-check-input"
-            type="checkbox"
-            id="themeSwitchOptions"
-            onChange={handleSwitch}
-          />
-          {selectedTheme} Theme
+    <Styled.Container data-testid="NavigationBarThemeSwitch">
+      <Styled.Content>
+        <Styled.Label theme={selectedTheme} htmlFor="themeSwitchOptions">
+          <Styled.Input type="checkbox" id="themeSwitchOptions" onChange={handleSwitch} />
+          {selectedTheme === 'dark' ? 'Light' : 'Dark'} Theme
         </Styled.Label>
       </Styled.Content>
     </Styled.Container>

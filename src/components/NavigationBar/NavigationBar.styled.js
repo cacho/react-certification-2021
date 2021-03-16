@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const Container = styled.nav`
+const Container = styled.nav.attrs((props) => ({
+  className: `navbar navbar-${props.theme} bg-${props.theme} fixed-top navbar-expand-md`,
+}))`
   padding: 15px;
-  background-color: #262e30;
-  color: #ffffff;
 `;
-const Content = styled.div`
+const Content = styled.div.attrs(() => ({ className: 'container-fluid' }))`
   padding: 0;
 `;
 

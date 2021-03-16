@@ -1,19 +1,21 @@
 import React, { useRef, useEffect, useState } from 'react';
 import VideoList from '../../components/VideoList';
-import useYoutubeAPI from '../../hooks/useYoutubeAPI';
-import { useSearch } from '../../providers/Search.provider';
-// import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
+// import useYoutubeAPI from '../../hooks/useYoutubeAPI';
+// import { useSearch } from '../../providers/Search.provider';
+import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
 import { filterItemsByKind } from '../../utils/contenFilter';
 import Styled from './Home.page.styled';
 
 import VideoDetail from '../../components/VideoDetail';
+import { useTheme } from '../../providers/Theme.provider';
 
 function HomePage() {
   const sectionRef = useRef(null);
-  const { searchTerm } = useSearch();
-  const { searchResult, loading } = useYoutubeAPI(searchTerm);
-  // const searchResult = MockedYoutubeResponse;
-  // const loading = false;
+  const { selectedTheme } = useTheme();
+  // const { searchTerm } = useSearch();
+  // const { searchResult, loading } = useYoutubeAPI(searchTerm);
+  const searchResult = MockedYoutubeResponse;
+  const loading = false;
   const [items, setItems] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [isVideoDetailVisible, setIsVideoDetailVisible] = useState(false);
@@ -33,11 +35,11 @@ function HomePage() {
 
   if (loading) return <p>Loading ....</p>;
   return (
-    <Styled.Container className="container" ref={sectionRef} data-testid="Home">
-      <div className="row">
+    <Styled.Container theme={selectedTheme} ref={sectionRef} data-testid="Home">
+      <Styled.Row>
         <h1>Hello stranger!</h1>
-      </div>
-      <div className="row">
+      </Styled.Row>
+      <Styled.Row>
         {isVideoDetailVisible && (
           <VideoDetail
             handle={hideVideoDetail}
@@ -49,7 +51,7 @@ function HomePage() {
           handle={showVideoDetail}
           isVideoDetailVisible={isVideoDetailVisible}
         />
-      </div>
+      </Styled.Row>
     </Styled.Container>
   );
 }

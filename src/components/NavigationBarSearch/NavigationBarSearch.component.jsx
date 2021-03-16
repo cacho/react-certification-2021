@@ -1,23 +1,20 @@
 import React from 'react';
 import { useSearch } from '../../providers/Search.provider';
 import Styled from './NavigationBarSearch.styled';
+import { useTheme } from '../../providers/Theme.provider';
 
 function NavigationBarSearch() {
+  const { selectedTheme } = useTheme();
   const { searchSubmited, termChanged } = useSearch();
   return (
-    <Styled.Form
-      className="d-flex"
-      data-testid="NavigationBarSearch"
-      onSubmit={searchSubmited}
-    >
+    <Styled.Form data-testid="NavigationBarSearch" onSubmit={searchSubmited}>
       <Styled.Field
-        className="form-control me-2"
         type="search"
         placeholder="Search"
         aria-label="Search"
         onChange={termChanged}
       />
-      <Styled.Button className="btn btn-outline-light" type="submit">
+      <Styled.Button type="submit" theme={selectedTheme}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

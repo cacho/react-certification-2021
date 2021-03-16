@@ -1,18 +1,17 @@
 import React from 'react';
 import NavigationBar from '../NavigationBar';
 import Styled from './Layout.styled';
-import ThemeProvider from '../../providers/Theme.provider';
+import { useTheme } from '../../providers/Theme.provider';
 
 function Layout({ children }) {
+  const { selectedTheme } = useTheme();
   return (
     <>
       <Styled.Header data-testid="Layout">
-        <ThemeProvider>
-          <NavigationBar />
-        </ThemeProvider>
+        <NavigationBar />
       </Styled.Header>
-      <Styled.Container>
-        <Styled.Main>{children}</Styled.Main>
+      <Styled.Container theme={selectedTheme}>
+        <Styled.Main theme={selectedTheme}>{children}</Styled.Main>
       </Styled.Container>
     </>
   );
