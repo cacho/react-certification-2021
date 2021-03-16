@@ -3,6 +3,7 @@ import { fireEvent, render } from '@testing-library/react';
 // import { mockComponent } from 'react-dom/test-utils';
 import Home from './Home.page';
 import SearchProvider from '../../providers/Search.provider';
+import ThemeProvider from '../../providers/Theme.provider';
 import mockuseYoutubeAPI from '../../utils/mocks/youTubeResponse.json';
 
 jest.mock('../../hooks/useYoutubeAPI', () => () => ({
@@ -27,7 +28,9 @@ describe('<Home />', () => {
   test('Renders home after loading...', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <Home />
+        <ThemeProvider>
+          <Home />
+        </ThemeProvider>
       </SearchProvider>
     );
 
@@ -37,7 +40,9 @@ describe('<Home />', () => {
   test('VideoDetail is not visible', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <Home />
+        <ThemeProvider>
+          <Home />
+        </ThemeProvider>
       </SearchProvider>
     );
     const container = getByTestId('Home');
@@ -47,7 +52,9 @@ describe('<Home />', () => {
   test('VideoDetail shows on click', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <Home />
+        <ThemeProvider>
+          <Home />
+        </ThemeProvider>
       </SearchProvider>
     );
     const container = getByTestId('Home');
@@ -61,7 +68,9 @@ describe('<Home />', () => {
   test('VideoDetail hides on button click', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <Home />
+        <ThemeProvider>
+          <Home />
+        </ThemeProvider>
       </SearchProvider>
     );
     const container = getByTestId('Home');

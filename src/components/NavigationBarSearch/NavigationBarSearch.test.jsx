@@ -2,12 +2,15 @@ import React from 'react';
 import { act, render } from '@testing-library/react';
 import NavigationBarSearch from './NavigationBarSearch.component';
 import SearchProvider from '../../providers/Search.provider';
+import ThemeProvider from '../../providers/Theme.provider';
 
 describe('<NavigationBarSearch />', () => {
   test('Renders correctly', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <NavigationBarSearch />
+        <ThemeProvider>
+          <NavigationBarSearch />
+        </ThemeProvider>
       </SearchProvider>
     );
     expect(getByTestId('NavigationBarSearch')).not.toBe(null);
@@ -16,7 +19,9 @@ describe('<NavigationBarSearch />', () => {
     const searchSubmitedMock = jest.fn();
     const { getByTestId } = render(
       <SearchProvider searchSubmited={searchSubmitedMock()}>
-        <NavigationBarSearch />
+        <ThemeProvider>
+          <NavigationBarSearch />
+        </ThemeProvider>
       </SearchProvider>
     );
     const form = getByTestId('NavigationBarSearch');
@@ -29,7 +34,9 @@ describe('<NavigationBarSearch />', () => {
     const termChangedMock = jest.fn();
     const { getByTestId } = render(
       <SearchProvider termChanged={termChangedMock()}>
-        <NavigationBarSearch />
+        <ThemeProvider>
+          <NavigationBarSearch />
+        </ThemeProvider>
       </SearchProvider>
     );
     const form = getByTestId('NavigationBarSearch');
@@ -43,7 +50,9 @@ describe('<NavigationBarSearch />', () => {
     const termChangedMock = jest.fn();
     const { getByTestId } = render(
       <SearchProvider termChanged={termChangedMock()}>
-        <NavigationBarSearch />
+        <ThemeProvider>
+          <NavigationBarSearch />
+        </ThemeProvider>
       </SearchProvider>
     );
     const form = getByTestId('NavigationBarSearch');
