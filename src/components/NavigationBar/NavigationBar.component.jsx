@@ -4,14 +4,13 @@ import NavigationBarBrand from '../NavigationBarBrand';
 import NavigationBarToggler from '../NavigatioBarToggler';
 import NavigationBarSearch from '../NavigationBarSearch';
 import NavigationBarMenu from '../NavigationBarMenu';
+import { useTheme } from '../../providers/Theme.provider';
 
 function NavigationBar() {
+  const { state } = useTheme();
   return (
-    <Styled.Container
-      className="navbar fixed-top navbar-expand-md"
-      data-testid="navigationBar"
-    >
-      <Styled.Content className="container-fluid">
+    <Styled.Container theme={state.selectedTheme} data-testid="navigationBar">
+      <Styled.Content>
         <NavigationBarBrand />
         <NavigationBarSearch />
         <NavigationBarToggler />

@@ -2,18 +2,17 @@ import React from 'react';
 import VideoListItem from '../VideoListItem';
 import Styled from './VideoList.styled';
 
-function VideoList({ items }) {
+function VideoList({ items, handle, isVideoDetailVisible }) {
   return (
-    <Styled.Container
-      className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 "
-      data-testid="VideoList"
-    >
-      {items.map(({ snippet, etag }) => (
+    <Styled.Container data-testid="VideoList" videoDetail={isVideoDetailVisible}>
+      {items.map(({ id, snippet, etag }) => (
         <VideoListItem
+          videoID={id.videoId}
           title={snippet.title}
           description={snippet.description}
           thumbnails={snippet.thumbnails}
           key={etag}
+          handler={handle}
         />
       ))}
     </Styled.Container>

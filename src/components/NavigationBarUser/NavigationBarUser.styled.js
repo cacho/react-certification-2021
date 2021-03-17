@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.div.attrs(() => ({ className: `nav-item` }))`
   width: 40px;
   height: 40px;
   @media (max-width: 768px) {
@@ -10,10 +10,12 @@ const Container = styled.div`
   }
 `;
 const UserImage = styled.svg`
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: ${(props) => (props.theme === 'light' ? `white` : `black`)};
+  opacity: 0.75;
   border-radius: 50%;
   & > path {
-    fill: white;
+    fill: ${(props) => (props.theme === 'light' ? 'black' : 'white')};
+    opacity: 1;
   }
 `;
 
