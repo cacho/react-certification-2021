@@ -16,4 +16,22 @@ describe('<Layout />', () => {
     const label = getByTestId('Layout');
     expect(label).not.toBe(null);
   });
+  test('Fails without SearchProvider', () => {
+    expect(() =>
+      render(
+        <ThemeProvider>
+          <Layout />
+        </ThemeProvider>
+      )
+    ).toThrowError(`Can't use "useSearch" without an SearchProvider!`);
+  });
+  test('Fails without ThemeProvider', () => {
+    expect(() =>
+      render(
+        <SearchProvider>
+          <Layout />
+        </SearchProvider>
+      )
+    ).toThrowError(`Can't use "useTheme" without an ThemeProvider!`);
+  });
 });

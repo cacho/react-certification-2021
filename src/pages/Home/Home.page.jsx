@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import VideoList from '../../components/VideoList';
-// import useYoutubeAPI from '../../hooks/useYoutubeAPI';
-// import { useSearch } from '../../providers/Search.provider';
-import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
+import useYoutubeAPI from '../../hooks/useYoutubeAPI';
+import { useSearch } from '../../providers/Search.provider';
+// import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
 import { filterItemsByKind } from '../../utils/contenFilter';
 import Styled from './Home.page.styled';
 
@@ -12,19 +12,19 @@ import { useTheme } from '../../providers/Theme.provider';
 function HomePage() {
   const sectionRef = useRef(null);
   const { selectedTheme } = useTheme();
-  // const { searchTerm } = useSearch();
-  // const { searchResult, loading } = useYoutubeAPI(searchTerm);
-  const searchResult = MockedYoutubeResponse;
-  const loading = false;
+  const { searchTerm } = useSearch();
+  const { searchResult, loading } = useYoutubeAPI(searchTerm);
+  // const searchResult = MockedYoutubeResponse;
+  // const loading = false;
   const [items, setItems] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [isVideoDetailVisible, setIsVideoDetailVisible] = useState(false);
 
   const hideVideoDetail = () => {
-    if (isVideoDetailVisible) setIsVideoDetailVisible(!isVideoDetailVisible);
+    setIsVideoDetailVisible(false);
   };
   const showVideoDetail = () => {
-    if (!isVideoDetailVisible) setIsVideoDetailVisible(!isVideoDetailVisible);
+    setIsVideoDetailVisible(true);
   };
   useEffect(() => {
     setItems(searchResult?.items);

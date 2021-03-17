@@ -13,4 +13,9 @@ describe('<NavigationBarUser />', () => {
     const container = getByTestId('navigationBarUser');
     expect(container).not.toBe(null);
   });
+  test('Fails without ThemeProvider', () => {
+    expect(() => render(<NavigationBarUser />)).toThrowError(
+      `Can't use "useTheme" without an ThemeProvider!`
+    );
+  });
 });

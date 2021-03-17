@@ -16,4 +16,22 @@ describe('<NavigationBar />', () => {
     const label = getByTestId('navigationBar');
     expect(label).not.toBe(null);
   });
+  test('Fails without SearchProvider', () => {
+    expect(() =>
+      render(
+        <ThemeProvider>
+          <NavigationBar />
+        </ThemeProvider>
+      )
+    ).toThrowError(`Can't use "useSearch" without an SearchProvider!`);
+  });
+  test('Fails without ThemeProvider', () => {
+    expect(() =>
+      render(
+        <SearchProvider>
+          <NavigationBar />
+        </SearchProvider>
+      )
+    ).toThrowError(`Can't use "useTheme" without an ThemeProvider!`);
+  });
 });

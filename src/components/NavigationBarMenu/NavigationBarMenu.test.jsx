@@ -12,4 +12,9 @@ describe('<NavigationBarMenu />', () => {
     );
     expect(getByTestId('NavigationBarMenu')).not.toBe(null);
   });
+  test('Fails without ThemeProvider', () => {
+    expect(() => render(<NavigationBarMenu />)).toThrowError(
+      `Can't use "useTheme" without an ThemeProvider!`
+    );
+  });
 });
