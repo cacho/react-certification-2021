@@ -1,7 +1,9 @@
 import React from 'react';
-import { act, render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { act, renderHook, WaitForNextUpdate } from '@testing-library/react-hooks';
+import { Simulate } from 'react-dom/test-utils';
 import NavigationBarSearch from './NavigationBarSearch.component';
-import SearchProvider from '../../providers/Search.provider';
+import SearchProvider, { useSearch } from '../../providers/Search.provider';
 import ThemeProvider from '../../providers/Theme.provider';
 
 describe('<NavigationBarSearch />', () => {
@@ -49,9 +51,8 @@ describe('<NavigationBarSearch />', () => {
     expect(searchSubmitedMock).toBeCalled();
   });
   test('Triggers onChange events with value', () => {
-    const termChangedMock = jest.fn();
     const { getByTestId } = render(
-      <SearchProvider termChanged={termChangedMock()}>
+      <SearchProvider>
         <ThemeProvider>
           <NavigationBarSearch />
         </ThemeProvider>
@@ -59,14 +60,12 @@ describe('<NavigationBarSearch />', () => {
     );
     const form = getByTestId('NavigationBarSearch');
     const searchField = form.querySelector('input.form-control.me-2');
-    fireEvent.change(searchField);
 
-    expect(termChangedMock).toBeCalled();
+    Simulate.change(searchField, { value: 'hola' });
   });
   test('Triggers onChange events empity value', () => {
-    const termChangedMock = jest.fn();
     const { getByTestId } = render(
-      <SearchProvider termChanged={termChangedMock()}>
+      <SearchProvider>
         <ThemeProvider>
           <NavigationBarSearch />
         </ThemeProvider>
@@ -74,9 +73,29 @@ describe('<NavigationBarSearch />', () => {
     );
     const form = getByTestId('NavigationBarSearch');
     const searchField = form.querySelector('input.form-control.me-2');
-    act(() => {
-      searchField.value = '';
-    });
-    expect(termChangedMock).toBeCalled();
+
+    Simulate.change(searchField, { value: '' });
+  });
+  test('Triggers onChange events empity value on provider', async () => {
+    const { getByTestId } = render(
+      <SearchProvider>
+        <ThemeProvider>
+          <NavigationBarSearch />
+        </ThemeProvider>
+      </SearchProvider>
+    );
+    const wrapper = ({ children }) => <SearchProvider>{children}</SearchProvider>;
+    const { result } = renderHook(() => useSearch(), { wrapper });
+    console.log(result.current);
+    const form = getByTestId('NavigationBarSearch');
+    const searchField = form.querySelector('input.form-control.me-2');
+
+    Simulate.change(searchField, { value: '' });
+
+    setTimeout(() => {
+      expect(result.current.searchState.seachTerm).toEqual('');
+    }, 1100);
+    // await WaitForNextUpdate;
+    // expect(result.current.searchState.seachTerm).toEqual('');
   });
 });
