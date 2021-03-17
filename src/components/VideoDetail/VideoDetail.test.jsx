@@ -1,16 +1,15 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Layout from './Layout.component';
+import VideoDetail from './VideoDetail.component';
 import SearchProvider from '../../providers/Search.provider';
 
-describe('<Layout />', () => {
+describe('<VideoDetail />', () => {
   test('Renders correctly', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <Layout />
+        <VideoDetail />
       </SearchProvider>
     );
-    const label = getByTestId('Layout');
-    expect(label).not.toBe(null);
+    expect(getByTestId('VideoDetail')).not.toBe(null);
   });
 });
