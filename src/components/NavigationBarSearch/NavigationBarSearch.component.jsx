@@ -4,7 +4,7 @@ import Styled from './NavigationBarSearch.styled';
 import { useTheme } from '../../providers/Theme.provider';
 
 function NavigationBarSearch() {
-  const { selectedTheme } = useTheme();
+  const { state } = useTheme();
   const { searchSubmited, termChanged } = useSearch();
   return (
     <Styled.Form data-testid="NavigationBarSearch" onSubmit={searchSubmited}>
@@ -14,7 +14,7 @@ function NavigationBarSearch() {
         aria-label="Search"
         onChange={termChanged}
       />
-      <Styled.Button type="submit" theme={selectedTheme}>
+      <Styled.Button type="submit" theme={state.selectedTheme}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

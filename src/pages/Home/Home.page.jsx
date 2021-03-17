@@ -11,7 +11,7 @@ import { useTheme } from '../../providers/Theme.provider';
 
 function HomePage() {
   const sectionRef = useRef(null);
-  const { selectedTheme } = useTheme();
+  const { state } = useTheme();
   const { searchTerm } = useSearch();
   const { searchResult, loading } = useYoutubeAPI(searchTerm);
   // const searchResult = MockedYoutubeResponse;
@@ -35,7 +35,7 @@ function HomePage() {
 
   if (loading) return <p>Loading ....</p>;
   return (
-    <Styled.Container theme={selectedTheme} ref={sectionRef} data-testid="Home">
+    <Styled.Container theme={state.selectedTheme} ref={sectionRef} data-testid="Home">
       <Styled.Row>
         <h1>Hello stranger!</h1>
       </Styled.Row>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useContext, useReducer } from 'react';
 
 const ThemeContext = React.createContext(null);
 
@@ -10,18 +10,24 @@ function useTheme() {
   return context;
 }
 
-function ThemeProvider({ children }) {
-  const [selectedTheme, setSelectedTheme] = useState('light');
+const initialState = { selectedTheme: 'light' };
+function reducer(state, action) {
+  switch (action.type) {
+    case 'TOGGLE_THEME':
+      return { selectedTheme: state.selectedTheme === 'light' ? 'dark' : 'light' };
 
-  const toggleSelectedTheme = useCallback(() => {
-    setSelectedTheme(selectedTheme === 'light' ? 'dark' : 'light');
-  }, [selectedTheme]);
+    default:
+  }
+}
+
+function ThemeProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <ThemeContext.Provider
       value={{
-        toggleSelectedTheme,
-        selectedTheme,
+        state,
+        dispatch,
       }}
     >
       {children}

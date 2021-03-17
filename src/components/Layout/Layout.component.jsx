@@ -4,14 +4,14 @@ import Styled from './Layout.styled';
 import { useTheme } from '../../providers/Theme.provider';
 
 function Layout({ children }) {
-  const { selectedTheme } = useTheme();
+  const { state } = useTheme();
   return (
     <>
       <Styled.Header data-testid="Layout">
         <NavigationBar />
       </Styled.Header>
-      <Styled.Container theme={selectedTheme}>
-        <Styled.Main theme={selectedTheme}>{children}</Styled.Main>
+      <Styled.Container theme={state.selectedTheme}>
+        <Styled.Main theme={state.selectedTheme}>{children}</Styled.Main>
       </Styled.Container>
     </>
   );
