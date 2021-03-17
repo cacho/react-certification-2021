@@ -5,10 +5,13 @@ import Styled from './VideoListItem.styled';
 import { useSearch } from '../../providers/Search.provider';
 
 function VideoListItem({ videoID, thumbnails, title, description, handler }) {
-  const { updateSelectedVideo } = useSearch();
+  const { dispatch } = useSearch();
   const updateVideo = () => {
     handler();
-    updateSelectedVideo(videoID, title, description);
+    dispatch({
+      type: 'UPDATE_SELECTED_VIDEO',
+      payload: { id: videoID, title, description },
+    });
   };
 
   return (

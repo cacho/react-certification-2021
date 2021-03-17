@@ -1,5 +1,4 @@
-import { debounce } from 'debounce';
-import React, { useState, useContext, useCallback } from 'react';
+import React, { useReducer, useContext } from 'react';
 
 const SearchContext = React.createContext(null);
 
@@ -11,39 +10,29 @@ function useSearch() {
   return context;
 }
 
+const initialState = {
+  searchTerm: 'wizeline',
+  selectedVideo: { id: '', title: '', description: '' },
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'SEARCH_TERM_CHANGE':
+      return { ...state, searchTerm: action.payload };
+    case 'UPDATE_SELECTED_VIDEO':
+      return { ...state, selectedVideo: action.payload };
+    default:
+      throw new Error();
+  }
+}
+
 function SearchProvider({ children }) {
-  const [searchTerm, setSearchterm] = useState('wizeline');
-  const [selectedVideo, setSelectedVideo] = useState({});
-
-  const debouncedSearch = debounce((v) => {
-    const searchFor = v === '' ? 'wizeline' : v;
-    setSearchterm(searchFor);
-  }, 700);
-
-  const termChanged = useCallback(
-    (e) => {
-      const { value } = e.target;
-      debouncedSearch(value);
-    },
-    [debouncedSearch]
-  );
-
-  const searchSubmited = useCallback((e) => {
-    e.preventDefault();
-  }, []);
-
-  const updateSelectedVideo = useCallback((id, title, description) => {
-    setSelectedVideo({ id, title, description });
-  }, []);
-
+  const [searchState, dispatch] = useReducer(reducer, initialState);
   return (
     <SearchContext.Provider
       value={{
-        termChanged,
-        searchSubmited,
-        updateSelectedVideo,
-        searchTerm,
-        selectedVideo,
+        searchState,
+        dispatch,
       }}
     >
       {children}

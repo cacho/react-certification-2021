@@ -1,18 +1,34 @@
 import React from 'react';
+import { debounce } from 'debounce';
 import { useSearch } from '../../providers/Search.provider';
 import Styled from './NavigationBarSearch.styled';
 import { useTheme } from '../../providers/Theme.provider';
 
 function NavigationBarSearch() {
   const { state } = useTheme();
-  const { searchSubmited, termChanged } = useSearch();
+  const { dispatch } = useSearch();
+
+  const debouncedSearch = debounce((v) => {
+    const searchFor = v === '' ? 'wizeline' : v;
+    dispatch({ type: 'SEARCH_TERM_CHANGE', payload: searchFor });
+  }, 1000);
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    debouncedSearch(value);
+  };
   return (
-    <Styled.Form data-testid="NavigationBarSearch" onSubmit={searchSubmited}>
+    <Styled.Form
+      data-testid="NavigationBarSearch"
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <Styled.Field
         type="search"
         placeholder="Search"
         aria-label="Search"
-        onChange={termChanged}
+        onChange={handleChange}
       />
       <Styled.Button type="submit" theme={state.selectedTheme}>
         <svg

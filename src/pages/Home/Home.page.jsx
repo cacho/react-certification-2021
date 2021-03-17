@@ -12,7 +12,8 @@ import { useTheme } from '../../providers/Theme.provider';
 function HomePage() {
   const sectionRef = useRef(null);
   const { state } = useTheme();
-  const { searchTerm } = useSearch();
+  const { searchState } = useSearch();
+  const { searchTerm } = searchState;
   const { searchResult, loading } = useYoutubeAPI(searchTerm);
   // const searchResult = MockedYoutubeResponse;
   // const loading = false;

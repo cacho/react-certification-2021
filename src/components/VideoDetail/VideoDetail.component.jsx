@@ -3,7 +3,8 @@ import Styled from './VideoDetail.styled';
 import { useSearch } from '../../providers/Search.provider';
 
 function VideoDetail({ handle, isVideoDetailVisible }) {
-  const { selectedVideo } = useSearch();
+  const { searchState } = useSearch();
+  const { selectedVideo } = searchState;
   return (
     <Styled.Container videoDetail={isVideoDetailVisible} data-testid="VideoDetail">
       <div>
