@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { act, renderHook, WaitForNextUpdate } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { Simulate } from 'react-dom/test-utils';
 import NavigationBarSearch from './NavigationBarSearch.component';
 import SearchProvider, { useSearch } from '../../providers/Search.provider';
