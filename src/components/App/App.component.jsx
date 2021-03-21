@@ -6,6 +6,9 @@ import NotFound from '../../pages/NotFound';
 import Layout from '../Layout';
 import SearchProvider from '../../providers/Search.provider';
 import ThemeProvider from '../../providers/Theme.provider';
+import AuthProvider from '../../providers/Auth.provider';
+import Private from '../Private/Private.component';
+import FavoritesPage from '../../pages/Favorites';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
@@ -15,16 +18,21 @@ function App() {
     <BrowserRouter>
       <SearchProvider>
         <ThemeProvider>
-          <Layout>
-            <Switch>
-              <Route exact path="/">
-                <HomePage />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-          </Layout>
+          <AuthProvider>
+            <Layout>
+              <Switch>
+                <Route exact path="/">
+                  <HomePage />
+                </Route>
+                <Private exact path="/favorites">
+                  <FavoritesPage />
+                </Private>
+                <Route path="*">
+                  <NotFound />
+                </Route>
+              </Switch>
+            </Layout>
+          </AuthProvider>
         </ThemeProvider>
       </SearchProvider>
     </BrowserRouter>
