@@ -21,7 +21,9 @@ function NavigationBarUser() {
         focus: true,
       });
       modalElement.addEventListener('shown.bs.modal', () => {
-        userNameField.focus();
+        if (userNameField) {
+          userNameField.focus();
+        }
       });
       modalElement.addEventListener('hidden.bs.modal', () => {
         setShowModal(false);

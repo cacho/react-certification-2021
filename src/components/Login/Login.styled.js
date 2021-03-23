@@ -17,6 +17,9 @@ const FormBody = styled.div.attrs(() => ({
 const FormHeader = styled.div.attrs(() => ({
   className: `modal-header`,
 }))``;
+const FormFooter = styled.div.attrs(() => ({
+  className: `modal-header`,
+}))``;
 const FormHeaderTitle = styled.h5.attrs(() => ({
   className: `modal-title`,
 }))``;
@@ -41,6 +44,7 @@ const Styled = {
   FormHeaderTitle,
   FormBody,
   FormHeader,
+  FormFooter,
   RowContainer,
   Form,
   Label,
