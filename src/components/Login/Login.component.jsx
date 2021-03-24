@@ -5,27 +5,31 @@ import loginAPI from '../../utils/mocks/login.api';
 import { useAuth } from '../../providers/Auth.provider';
 
 function Login() {
-  const { login, logout, authenticated } = useAuth();
+  const { state, dispatch } = useAuth();
+  const { authenticated } = state;
   console.log(authenticated);
+
   const sendLogin = async (event) => {
     event.preventDefault();
     const userName = event.target.username.value;
     const password = event.target.password.value;
     await loginAPI(userName, password)
       .then(() => {
-        login();
+        dispatch({ type: 'AUTH_LOG_IN' });
         const myModalEl = document.getElementById('portalModalContainer');
         const modal = Modal.getInstance(myModalEl);
         modal.hide();
       })
       .catch((error) => console.log(error));
   };
+
   const sendLogout = () => {
-    logout();
+    dispatch({ type: 'AUTH_LOG_OUT' });
     const myModalEl = document.getElementById('portalModalContainer');
     const modal = Modal.getInstance(myModalEl);
     modal.hide();
   };
+
   return (
     <>
       {!authenticated ? (

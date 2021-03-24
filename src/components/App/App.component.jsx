@@ -27,6 +27,9 @@ function App() {
                 <Private exact path="/favorites">
                   <FavoritesPage />
                 </Private>
+                <Route exact path="/favoritos">
+                  <FavoritesPage />
+                </Route>
                 <Route path="*">
                   <NotFound />
                 </Route>

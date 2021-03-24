@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useContext, useReducer } from 'react';
 
 import { AUTH_STORAGE_KEY } from '../utils/constants';
 import { storage } from '../utils/storage';
@@ -13,42 +13,28 @@ function useAuth() {
   return context;
 }
 
-// const initialState = {
-//   authenticated: false,
-// };
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'AUTH_STATUS_CHANGE':
-//       return { authenticated: state.authenticated };
-//     default:
-//       throw new Error();
-//   }
-// }
+const initialState = {
+  authenticated: Boolean(storage.get(AUTH_STORAGE_KEY)),
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'AUTH_LOG_IN':
+      storage.set(AUTH_STORAGE_KEY, true);
+      return { ...state, authenticated: true };
+    case 'AUTH_LOG_OUT':
+      storage.set(AUTH_STORAGE_KEY, false);
+      return { ...state, authenticated: false };
+    default:
+      throw new Error();
+  }
+}
 
 function AuthProvider({ children }) {
-  const [authenticated, setAuthenticated] = useState(false);
-  // const [state, dispatch] = useReducer();
-  useEffect(() => {
-    const lastAuthState = storage.get(AUTH_STORAGE_KEY);
-    const isAuthenticated = Boolean(lastAuthState);
-
-    setAuthenticated(isAuthenticated);
-  }, []);
-
-  const login = useCallback(() => {
-    setAuthenticated(true);
-    storage.set(AUTH_STORAGE_KEY, true);
-  }, []);
-
-  const logout = useCallback(() => {
-    setAuthenticated(false);
-    storage.set(AUTH_STORAGE_KEY, false);
-  }, []);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <AuthContext.Provider value={{ login, logout, authenticated }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ state, dispatch }}>{children}</AuthContext.Provider>
   );
 }
 

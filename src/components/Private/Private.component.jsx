@@ -4,11 +4,10 @@ import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../../providers/Auth.provider';
 
 function Private({ children, ...rest }) {
-  const { authenticated } = useAuth();
+  const { state } = useAuth();
+  const { authenticated } = state;
 
-  return (
-    <Route {...rest} render={() => (authenticated ? children : <Redirect to="/" />)} />
-  );
+  return <Route {...rest}>{authenticated ? children : <Redirect to="/" />}</Route>;
 }
 
 export default Private;
