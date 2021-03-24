@@ -9,6 +9,8 @@ import ThemeProvider from '../../providers/Theme.provider';
 import AuthProvider from '../../providers/Auth.provider';
 import Private from '../Private/Private.component';
 import FavoritesPage from '../../pages/Favorites';
+import PortalModal from '../PortalModal/PortalModal.component';
+import Login from '../Login/Login.component';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
@@ -27,8 +29,10 @@ function App() {
                 <Private exact path="/favorites">
                   <FavoritesPage />
                 </Private>
-                <Route exact path="/favoritos">
-                  <FavoritesPage />
+                <Route exact path="/login">
+                  <PortalModal>
+                    <Login />
+                  </PortalModal>
                 </Route>
                 <Route path="*">
                   <NotFound />
