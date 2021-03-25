@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import NavigationBar from './NavigationBar.component';
 import SearchProvider from '../../providers/Search.provider';
 import ThemeProvider from '../../providers/Theme.provider';
@@ -9,7 +10,9 @@ describe('<NavigationBar />', () => {
     const { getByTestId } = render(
       <SearchProvider>
         <ThemeProvider>
-          <NavigationBar />
+          <BrowserRouter>
+            <NavigationBar />
+          </BrowserRouter>
         </ThemeProvider>
       </SearchProvider>
     );
@@ -20,7 +23,9 @@ describe('<NavigationBar />', () => {
     expect(() =>
       render(
         <ThemeProvider>
-          <NavigationBar />
+          <BrowserRouter>
+            <NavigationBar />
+          </BrowserRouter>
         </ThemeProvider>
       )
     ).toThrowError(`Can't use "useSearch" without an SearchProvider!`);
@@ -29,7 +34,9 @@ describe('<NavigationBar />', () => {
     expect(() =>
       render(
         <SearchProvider>
-          <NavigationBar />
+          <BrowserRouter>
+            <NavigationBar />
+          </BrowserRouter>
         </SearchProvider>
       )
     ).toThrowError(`Can't use "useTheme" without an ThemeProvider!`);

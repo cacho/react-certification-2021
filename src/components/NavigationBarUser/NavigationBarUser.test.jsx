@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import NavigationBarUser from './NavigationBarUser.component';
 import ThemeProvider from '../../providers/Theme.provider';
 
@@ -7,7 +8,9 @@ describe('<NavigationBarUser />', () => {
   test('Renders correctly', () => {
     const { getByTestId } = render(
       <ThemeProvider>
-        <NavigationBarUser />
+        <BrowserRouter>
+          <NavigationBarUser />
+        </BrowserRouter>
       </ThemeProvider>
     );
     const container = getByTestId('navigationBarUser');

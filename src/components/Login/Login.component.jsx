@@ -33,7 +33,7 @@ function Login() {
   return (
     <>
       {!authenticated ? (
-        <Styled.Container>
+        <Styled.Container data-testid="LoginFormComponent">
           <Styled.FormContainer>
             <Styled.FormHeader>
               <Styled.FormHeaderTitle>Login</Styled.FormHeaderTitle>
