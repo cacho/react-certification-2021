@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'bootstrap';
+import { useHistory } from 'react-router-dom';
 
 import PortalModal from '../components/PortalModal/PortalModal.component';
 import Login from '../components/Login/Login.component';
 
 const useModal = () => {
+  const history = useHistory();
+  const goBack = () => {
+    history.goBack();
+  };
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const displayModal = () => {
+    setShowModal(true);
   };
   useEffect(() => {
     if (showModal) {
@@ -25,18 +34,19 @@ const useModal = () => {
       });
       modalElement.addEventListener('hidden.bs.modal', () => {
         setShowModal(false);
+        goBack();
       });
       portalModal.show();
     }
   });
 
-  const modal = showModal ? (
+  const modal = (
     <PortalModal>
       <Login />
     </PortalModal>
-  ) : null;
+  );
 
-  return { showModal, modal, toggleModal };
+  return { showModal, modal, toggleModal, displayModal };
 };
 
 export default useModal;

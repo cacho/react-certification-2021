@@ -1,16 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import HomePage from '../../pages/Home';
-import NotFound from '../../pages/NotFound';
 import Layout from '../Layout';
 import SearchProvider from '../../providers/Search.provider';
 import ThemeProvider from '../../providers/Theme.provider';
 import AuthProvider from '../../providers/Auth.provider';
-import Private from '../Private/Private.component';
-import FavoritesPage from '../../pages/Favorites';
-import PortalModal from '../PortalModal/PortalModal.component';
-import Login from '../Login/Login.component';
+import Routes from '../Routes/Routes.component';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
@@ -22,22 +17,7 @@ function App() {
         <ThemeProvider>
           <AuthProvider>
             <Layout>
-              <Switch>
-                <Route exact path="/">
-                  <HomePage />
-                </Route>
-                <Private exact path="/favorites">
-                  <FavoritesPage />
-                </Private>
-                <Route exact path="/login">
-                  <PortalModal>
-                    <Login />
-                  </PortalModal>
-                </Route>
-                <Route path="*">
-                  <NotFound />
-                </Route>
-              </Switch>
+              <Routes />
             </Layout>
           </AuthProvider>
         </ThemeProvider>
