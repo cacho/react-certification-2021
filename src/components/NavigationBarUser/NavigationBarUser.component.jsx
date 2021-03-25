@@ -1,42 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Modal } from 'bootstrap';
+import React from 'react';
 import Styled from './NavigationBarUser.styled';
 import { useTheme } from '../../providers/Theme.provider';
-import PortalModal from '../PortalModal/PortalModal.component';
-import Login from '../Login/Login.component';
+import useModal from '../../hooks/useModal';
 
 function NavigationBarUser() {
   const { state } = useTheme();
-  const [showModal, setShowModal] = useState(false);
+  const { toggleModal, modal } = useModal();
 
   const showLoginForm = () => {
-    setShowModal(true);
+    toggleModal();
   };
-  useEffect(() => {
-    if (showModal) {
-      const modalElement = document.getElementById('portalModalContainer');
-      const userNameField = document.getElementById('username');
-      const portalModal = new Modal(modalElement, {
-        keyboard: false,
-        focus: true,
-      });
-      modalElement.addEventListener('shown.bs.modal', () => {
-        if (userNameField) {
-          userNameField.focus();
-        }
-      });
-      modalElement.addEventListener('hidden.bs.modal', () => {
-        setShowModal(false);
-      });
-      portalModal.show();
-    }
-  }, [showModal]);
-
-  const modal = showModal ? (
-    <PortalModal>
-      <Login />
-    </PortalModal>
-  ) : null;
 
   return (
     <>
