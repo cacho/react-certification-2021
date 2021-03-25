@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import VideoList from '../../components/VideoList';
-// import useYoutubeAPI from '../../hooks/useYoutubeAPI';
-// import { useSearch } from '../../providers/Search.provider';
-import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
+import useYoutubeAPI from '../../hooks/useYoutubeAPI';
+import { useSearch } from '../../providers/Search.provider';
+// import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
 import { filterItemsByKind } from '../../utils/contenFilter';
 import Styled from './Home.page.styled';
 
@@ -12,11 +12,11 @@ import { useTheme } from '../../providers/Theme.provider';
 function HomePage() {
   const sectionRef = useRef(null);
   const { state } = useTheme();
-  // const { searchState } = useSearch();
-  // const { searchTerm } = searchState;
-  // const { searchResult, loading } = useYoutubeAPI(searchTerm);
-  const searchResult = MockedYoutubeResponse;
-  const loading = false;
+  const { searchState } = useSearch();
+  const { searchTerm } = searchState;
+  const { searchResult, loading } = useYoutubeAPI(searchTerm);
+  // const searchResult = MockedYoutubeResponse;
+  // const loading = false;
   const [items, setItems] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [isVideoDetailVisible, setIsVideoDetailVisible] = useState(false);
