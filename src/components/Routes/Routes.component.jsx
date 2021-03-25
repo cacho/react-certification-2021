@@ -6,6 +6,7 @@ import NotFound from '../../pages/NotFound';
 import Private from '../Private/Private.component';
 import FavoritesPage from '../../pages/Favorites';
 import LoginPage from '../../pages/Login';
+import RestrictedAccessWarning from '../../pages/RestrictedAccessWarning';
 
 function Routes() {
   const location = useLocation();
@@ -20,6 +21,9 @@ function Routes() {
           <FavoritesPage />
         </Private>
         <Route path="/login" component={LoginPage} />
+        <Route path="/restricted-access">
+          <RestrictedAccessWarning />
+        </Route>
         <Route path="*">
           <NotFound />
         </Route>
