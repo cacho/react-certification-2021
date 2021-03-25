@@ -3,7 +3,7 @@ import Styled from './NavigationBarBrand.styled';
 
 function NavigationBarBrand() {
   return (
-    <Styled.Container className="navbar-brand" href="/" data-testid="NavigationBarBrand">
+    <Styled.Container className="navbar-brand" to="/" data-testid="NavigationBarBrand">
       <Styled.Image
         src="./logo120.png"
         alt=""

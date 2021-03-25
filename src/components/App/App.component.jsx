@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import Layout from '../Layout';
 import SearchProvider from '../../providers/Search.provider';
@@ -12,7 +12,7 @@ import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <SearchProvider>
         <ThemeProvider>
           <AuthProvider>
@@ -22,7 +22,7 @@ function App() {
           </AuthProvider>
         </ThemeProvider>
       </SearchProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
