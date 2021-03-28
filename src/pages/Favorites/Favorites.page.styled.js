@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Container = styled.section.attrs((props) => ({
-  className: `
+  className: `container
    bg-${props.theme}
    text-${props.theme === 'light' ? 'dark' : 'light'}`,
 }))`
@@ -10,6 +10,7 @@ const Container = styled.section.attrs((props) => ({
 const PageContent = styled.div``;
 const WarningText = styled.p``;
 const Title = styled.h1``;
+const Row = styled.div.attrs(() => ({ className: `row` }))``;
 
-const Styled = { Container, PageContent, WarningText, Title };
+const Styled = { Container, PageContent, WarningText, Title, Row };
 export default Styled;
