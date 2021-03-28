@@ -4,6 +4,10 @@ import VideoDetail from './VideoDetail.component';
 import SearchProvider from '../../providers/Search.provider';
 
 describe('<VideoDetail />', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   test('Renders correctly', () => {
     const { getByTestId } = render(
       <SearchProvider>

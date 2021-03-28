@@ -5,20 +5,15 @@ import SearchProvider from '../../providers/Search.provider';
 
 describe('<VideoListItem />', () => {
   const mockedData = {
-    videoID: 'testingVid',
-    thumbnails: { high: { url: '' } },
-    title: '',
-    description: '',
-    handler: jest.fn(),
+    id: { videoID: 'testingVid' },
+    snippet: { thumbnails: { high: { url: '' } }, title: '', description: '' },
   };
+  const mockedHandler = jest.fn();
+
   test('Renders correctly', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <VideoListItem
-          title={mockedData.title}
-          description={mockedData.description}
-          thumbnails={mockedData.thumbnails}
-        />
+        <VideoListItem item={mockedData} handler={mockedData} />
       </SearchProvider>
     );
     const container = getByTestId('VideoListItem');
@@ -27,13 +22,7 @@ describe('<VideoListItem />', () => {
   test('Triggers function on click', () => {
     const { getByTestId } = render(
       <SearchProvider>
-        <VideoListItem
-          title={mockedData.title}
-          description={mockedData.description}
-          thumbnails={mockedData.thumbnails}
-          handler={mockedData.handler}
-          videoID={mockedData.videoID}
-        />
+        <VideoListItem handler={mockedHandler} item={mockedData} />
       </SearchProvider>
     );
     const wrapper = getByTestId('VideoListItem');
@@ -41,6 +30,6 @@ describe('<VideoListItem />', () => {
     act(() => {
       card.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     });
-    expect(mockedData.handler).toBeCalled();
+    expect(mockedHandler).toBeCalled();
   });
 });

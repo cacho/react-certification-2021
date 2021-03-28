@@ -12,7 +12,10 @@ function useSearch() {
 
 const initialState = {
   searchTerm: 'wizeline',
-  selectedVideo: { id: '', title: '', description: '' },
+  selectedVideo: {
+    id: { videoID: 'testingVid' },
+    snippet: { thumbnails: { high: { url: '' } }, title: '', description: '' },
+  },
 };
 
 function reducer(state, action) {
