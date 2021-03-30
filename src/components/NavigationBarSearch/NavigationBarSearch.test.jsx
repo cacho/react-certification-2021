@@ -18,6 +18,9 @@ describe('<NavigationBarSearch />', () => {
     expect(getByTestId('NavigationBarSearch')).not.toBe(null);
   });
   test('Fails without SearchProvider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
     expect(() =>
       render(
         <ThemeProvider>
@@ -25,8 +28,12 @@ describe('<NavigationBarSearch />', () => {
         </ThemeProvider>
       )
     ).toThrowError(`Can't use "useSearch" without an SearchProvider!`);
+    consoleSpy.mockRestore();
   });
   test('Fails without ThemeProvider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
     expect(() =>
       render(
         <SearchProvider>
@@ -34,6 +41,7 @@ describe('<NavigationBarSearch />', () => {
         </SearchProvider>
       )
     ).toThrowError(`Can't use "useTheme" without an ThemeProvider!`);
+    consoleSpy.mockRestore();
   });
   test('Triggers Submit event', () => {
     const searchSubmitedMock = jest.fn();

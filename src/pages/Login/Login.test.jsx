@@ -7,11 +7,11 @@
 // import NavigationBar from '../../components/NavigationBar';
 // import PortalModal from '../../components/PortalModal/PortalModal.component';
 
-// describe('<LoginPage />', () => {
-// test('Renders Login page', async () => {
-//   const { getByTestId } = render(<PortalModal>alo</PortalModal>);
-//   const barButton = getByTestId('navigationBarUser');
-//   fireEvent.click(barButton);
-//   expect(document.getElementById('portalModalContainer')).not.toBe(null);
-// });
-// });
+describe('<LoginPage />', () => {
+  test('Renders Login page', async () => {
+    // const { getByTestId } = render(<PortalModal>alo</PortalModal>);
+    // const barButton = getByTestId('navigationBarUser');
+    // fireEvent.click(barButton);
+    // expect(document.getElementById('portalModalContainer')).not.toBe(null);
+  });
+});

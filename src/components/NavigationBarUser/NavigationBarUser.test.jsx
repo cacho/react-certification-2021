@@ -17,8 +17,12 @@ describe('<NavigationBarUser />', () => {
     expect(container).not.toBe(null);
   });
   test('Fails without ThemeProvider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
     expect(() => render(<NavigationBarUser />)).toThrowError(
       `Can't use "useTheme" without an ThemeProvider!`
     );
+    consoleSpy.mockRestore();
   });
 });

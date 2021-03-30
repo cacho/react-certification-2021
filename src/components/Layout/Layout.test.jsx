@@ -20,6 +20,8 @@ describe('<Layout />', () => {
     expect(label).not.toBe(null);
   });
   test('Fails without SearchProvider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
     expect(() =>
       render(
         <ThemeProvider>
@@ -29,8 +31,11 @@ describe('<Layout />', () => {
         </ThemeProvider>
       )
     ).toThrowError(`Can't use "useSearch" without an SearchProvider!`);
+    consoleSpy.mockRestore();
   });
   test('Fails without ThemeProvider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
     expect(() =>
       render(
         <SearchProvider>
@@ -40,5 +45,6 @@ describe('<Layout />', () => {
         </SearchProvider>
       )
     ).toThrowError(`Can't use "useTheme" without an ThemeProvider!`);
+    consoleSpy.mockRestore();
   });
 });

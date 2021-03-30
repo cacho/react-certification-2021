@@ -20,6 +20,9 @@ describe('<NavigationBar />', () => {
     expect(label).not.toBe(null);
   });
   test('Fails without SearchProvider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
     expect(() =>
       render(
         <ThemeProvider>
@@ -29,8 +32,12 @@ describe('<NavigationBar />', () => {
         </ThemeProvider>
       )
     ).toThrowError(`Can't use "useSearch" without an SearchProvider!`);
+    consoleSpy.mockRestore();
   });
   test('Fails without ThemeProvider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
     expect(() =>
       render(
         <SearchProvider>
@@ -40,5 +47,6 @@ describe('<NavigationBar />', () => {
         </SearchProvider>
       )
     ).toThrowError(`Can't use "useTheme" without an ThemeProvider!`);
+    consoleSpy.mockRestore();
   });
 });

@@ -15,9 +15,13 @@ describe('<NavigationBarThemeSwitch />', () => {
   });
 
   test('Fails without provider', () => {
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
     expect(() => render(<NavigationBarThemeSwitch />)).toThrowError(
       `Can't use "useTheme" without an ThemeProvider!`
     );
+    consoleSpy.mockRestore();
   });
 
   test('Handle change event ', () => {

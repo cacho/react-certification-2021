@@ -5,7 +5,7 @@ import SearchProvider from '../../providers/Search.provider';
 
 describe('<VideoListItem />', () => {
   const mockedData = {
-    id: { videoID: 'testingVid' },
+    id: { videoID: '' },
     snippet: { thumbnails: { high: { url: '' } }, title: '', description: '' },
   };
   const mockedHandler = jest.fn();
