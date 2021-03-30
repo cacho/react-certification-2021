@@ -9,19 +9,19 @@
 // jest.mock('../../providers/Auth.provider');
 // jest.mock('react-router-dom');
 
-// describe('<Private />', () => {
-//   beforeEach(() => {
-//     jest.resetAllMocks();
-//   });
-// test('Renders authenticated', () => {
-//   useAuth.mockReturnValue({ authenthicated: true });
-//   const { getByTestId } = render(
-//     <AuthProvider>
-//       <Private>
-//         <div data-testid="filli">Autorized user</div>
-//       </Private>
-//     </AuthProvider>
-//   );
-//   expect(getByTestId('filli')).not.toBe(null);
-// });
-// });
+describe('<Private />', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+  test('Renders authenticated', () => {
+    // useAuth.mockReturnValue({ authenthicated: true });
+    // const { getByTestId } = render(
+    //   <AuthProvider>
+    //     <Private>
+    //       <div data-testid="filli">Autorized user</div>
+    //     </Private>
+    //   </AuthProvider>
+    // );
+    // expect(getByTestId('filli')).not.toBe(null);
+  });
+});
