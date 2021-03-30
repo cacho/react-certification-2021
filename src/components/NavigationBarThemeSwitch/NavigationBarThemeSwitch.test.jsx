@@ -36,4 +36,20 @@ describe('<NavigationBarThemeSwitch />', () => {
     fireEvent.click(input);
     expect(mockFunction).toBeCalledTimes(1);
   });
+  test('Switch themes', () => {
+    const { getByTestId } = render(
+      <ThemeProvider>
+        <NavigationBarThemeSwitch />
+      </ThemeProvider>
+    );
+
+    const container = getByTestId('NavigationBarThemeSwitch');
+    const input = container.querySelector('input#themeSwitchOptions');
+    const label = container.querySelector('label');
+    expect(label.textContent).toBe('Dark Theme');
+    fireEvent.click(input);
+    expect(label.textContent).toBe('Light Theme');
+    fireEvent.click(input);
+    expect(label.textContent).toBe('Dark Theme');
+  });
 });

@@ -7,9 +7,9 @@ import { useAuth } from '../../providers/Auth.provider';
 function Login() {
   const { state, dispatch } = useAuth();
   const { authenticated } = state;
-  console.log(authenticated);
 
   const sendLogin = async (event) => {
+    console.log(event.target);
     event.preventDefault();
     const userName = event.target.username.value;
     const password = event.target.password.value;
@@ -63,7 +63,9 @@ function Login() {
                   />
                   <Styled.Label htmlFor="password">Password</Styled.Label>
                 </Styled.RowContainer>
-                <Styled.SendButton type="submit">Login</Styled.SendButton>
+                <Styled.SendButton aria-label="Login" type="submit">
+                  Login
+                </Styled.SendButton>
               </Styled.Form>
             </Styled.FormBody>
           </Styled.FormContainer>
