@@ -25,7 +25,7 @@ function reducer(state, action) {
     case 'UPDATE_SELECTED_VIDEO':
       return { ...state, selectedVideo: action.payload };
     default:
-      throw new Error();
+      throw new Error('Invalid operation');
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, render, findByText, screen } from '@testing-library/react';
+import { fireEvent, render, findByText, screen, act } from '@testing-library/react';
+import TestUtils from 'react-dom/test-utils';
 import Login from './Login.component';
 import AuthProvider, { useAuth } from '../../providers/Auth.provider';
 // import { HashRouter } from 'react-router-dom';
@@ -30,29 +31,27 @@ describe('<Login/>', () => {
     consoleSpy.mockRestore();
   });
   test('Trigger login Action', async () => {
-    // const { getByTestId } = render(
-    //   <AuthProvider authenticated>
-    //     <Login />
-    //   </AuthProvider>
-    // );
-    // const loginFormContainer = getByTestId('LoginFormComponent');
-    // expect(loginFormContainer).not.toBe(null);
-    // const loginForm = loginFormContainer.querySelector('#loginForm');
-    // const formButton = loginForm.querySelector('#loginForm button[type=submit]');
-    // const loginNameField = loginForm.querySelector('#username');
-    // fireEvent.change(loginNameField, { target: { value: 'jhon' } });
-    // fireEvent.change(loginForm.querySelector('#password'), { target: { value: 'pass' } });
-    // loginForm.querySelector('#username').value = 'sasd';
-    // fireEvent(
-    //   formButton,
-    //   new MouseEvent('click', {
-    //     bubbles: true,
-    //     cancelable: true,
-    //   })
-    // );
-    // loginForm.addEventListener('submit', (e) => {
-    //   console.log(e);
-    //   expect(e).toThrowError('Username or password invalid');
-    // });
+    const { getByTestId } = render(
+      <AuthProvider authenticated>
+        <Login />
+      </AuthProvider>
+    );
+    const loginFormContainer = getByTestId('LoginFormComponent');
+    expect(loginFormContainer).not.toBe(null);
+    const loginForm = loginFormContainer.querySelector('#loginForm');
+    const formButton = loginForm.querySelector('#loginForm button[type=submit]');
+    const loginNameField = loginForm.querySelector('#username');
+    const loginPassField = loginForm.querySelector('#password');
+    // TestUtils.Simulate.change(loginNameField, { target: { value: 'Peter Parker' } });
+    act(() => {
+      fireEvent.change(loginNameField, { target: { value: 'jhon' } });
+      fireEvent.change(loginPassField, { target: { value: 'pass' } });
+      // fireEvent.click(formButton);
+    });
+
+    loginForm.addEventListener('submit', (e) => {
+      console.log(e);
+      expect(e).toThrowError('Username or password invalid');
+    });
   });
 });

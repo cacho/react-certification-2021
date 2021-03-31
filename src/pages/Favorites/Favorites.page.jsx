@@ -10,7 +10,7 @@ function FavoritesPage() {
   const { state } = useTheme();
   const { selectedTheme } = state;
 
-  const items = storage.get(AUTH_USER_FAVORITES);
+  const items = storage.get(AUTH_USER_FAVORITES) || [];
   const [isVideoDetailVisible, setIsVideoDetailVisible] = useState(false);
 
   const hideVideoDetail = () => {
@@ -21,7 +21,7 @@ function FavoritesPage() {
   };
 
   return (
-    <Styled.Container theme={selectedTheme}>
+    <Styled.Container theme={selectedTheme} data-testid="FavoritesPage">
       <Styled.Title>Favorites</Styled.Title>
       <Styled.Row>
         {isVideoDetailVisible && (

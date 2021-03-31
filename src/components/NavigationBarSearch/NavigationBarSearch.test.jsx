@@ -1,6 +1,8 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { fireEvent, render } from '@testing-library/react';
+import { act, renderHook, WaitForNextUpdate } from '@testing-library/react-hooks';
+
+import userEvent from '@testing-library/user-event';
 import { Simulate } from 'react-dom/test-utils';
 import NavigationBarSearch from './NavigationBarSearch.component';
 import SearchProvider, { useSearch } from '../../providers/Search.provider';
@@ -84,25 +86,42 @@ describe('<NavigationBarSearch />', () => {
     Simulate.change(searchField, { value: '' });
   });
   test('Triggers onChange events empity value on provider', async () => {
-    const { getByTestId } = render(
-      <SearchProvider>
-        <ThemeProvider>
-          <NavigationBarSearch />
-        </ThemeProvider>
-      </SearchProvider>
-    );
     const wrapper = ({ children }) => <SearchProvider>{children}</SearchProvider>;
     const { result } = renderHook(() => useSearch(), { wrapper });
-    console.log(result.current);
-    const form = getByTestId('NavigationBarSearch');
-    const searchField = form.querySelector('input.form-control.me-2');
+    render(
+      <ThemeProvider>
+        <NavigationBarSearch />
+      </ThemeProvider>,
+      { wrapper }
+    );
 
-    Simulate.change(searchField, { value: '' });
+    act(() => {
+      result.current.dispatch({
+        type: 'SEARCH_TERM_CHANGE',
+        payload: 'test',
+      });
+    });
 
-    setTimeout(() => {
-      expect(result.current.searchState.seachTerm).toEqual('');
-    }, 1100);
-    // await WaitForNextUpdate;
-    // expect(result.current.searchState.seachTerm).toEqual('');
+    await WaitForNextUpdate;
+    expect(result.current.searchState.searchTerm).toEqual('test');
+  });
+  test('UseSearch throw error', async () => {
+    const wrapper = ({ children }) => <SearchProvider>{children}</SearchProvider>;
+    const { result } = renderHook(() => useSearch(), { wrapper });
+
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+    try {
+      act(() =>
+        result.current.dispatch({
+          type: 'NON_EXISTING_TYPE',
+          payload: 'test',
+        })
+      );
+    } catch (error) {
+      expect(error).toEqual('Invalid operation');
+    }
+
+    consoleSpy.mockRestore();
   });
 });

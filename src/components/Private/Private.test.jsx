@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import React from 'react';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Route, HashRouter, Switch } from 'react-router-dom';
 
 import Private from './Private.component';
 import AuthProvider from '../../providers/Auth.provider';
@@ -13,11 +12,27 @@ describe('<Private />', () => {
   // beforeEach(() => {
   //   jest.resetAllMocks();
   // });
-  test('Renders authenticated', () => {
-    // const history = createMemoryHistory();
+  test('Redirect unauthenticated users', () => {
+    render(
+      <AuthProvider>
+        <HashRouter>
+          <Switch>
+            <Private exact path="/">
+              <div>test</div>
+            </Private>
+            <Route path="/restricted-access">
+              <div>restricted</div>
+            </Route>
+          </Switch>
+        </HashRouter>
+      </AuthProvider>
+    );
+    expect(screen.getByText(/restricted/i)).toBeInTheDocument();
+  });
+  test('Redirect authenticated users', () => {
     // render(
-    //   <AuthProvider {...{ authenticated: true }}>
-    //     <Router history={history}>
+    //   <AuthProvider>
+    //     <HashRouter>
     //       <Switch>
     //         <Private exact path="/">
     //           <div>test</div>
@@ -26,9 +41,9 @@ describe('<Private />', () => {
     //           <div>restricted</div>
     //         </Route>
     //       </Switch>
-    //     </Router>
+    //     </HashRouter>
     //   </AuthProvider>
     // );
-    // expect(screen.getByText(/start/i)).toBeInTheDocument();
+    // expect(screen.getByText(/test/i)).toBeInTheDocument();
   });
 });

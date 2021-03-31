@@ -9,7 +9,6 @@ function Login() {
   const { authenticated } = state;
 
   const sendLogin = async (event) => {
-    console.log(event.target);
     event.preventDefault();
     const userName = event.target.username.value;
     const password = event.target.password.value;

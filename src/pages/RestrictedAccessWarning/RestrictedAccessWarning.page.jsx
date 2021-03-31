@@ -7,7 +7,7 @@ function RestrictedAccessWarning() {
   const { state } = useTheme();
   const { selectedTheme } = state;
   return (
-    <Styled.Container theme={selectedTheme}>
+    <Styled.Container theme={selectedTheme} data-testid="ResrictedAccessPage">
       <Styled.PageContent>
         <Styled.WarningText>Acceso Restringido</Styled.WarningText>
         <Link to="/"> ← go back</Link>

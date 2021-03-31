@@ -147,6 +147,8 @@ describe('<Home />', () => {
     expect(window.localStorage.setItem).toHaveBeenCalledTimes(1);
   });
   test('VideoDetail saveToFavorites avoid Saving Duplicates', () => {
+    useYoutubeAPI.mockReturnValue({ loading: false, searchResult: mockToUseYoutubeAPI });
+
     Object.defineProperty(window, 'localStorage', {
       value: {
         getItem: jest.fn(() => {
@@ -158,7 +160,7 @@ describe('<Home />', () => {
       },
       writable: true,
     });
-    useYoutubeAPI.mockReturnValue({ loading: false, searchResult: mockToUseYoutubeAPI });
+
     const { getByTestId } = render(
       <SearchProvider>
         <ThemeProvider>
@@ -166,16 +168,20 @@ describe('<Home />', () => {
         </ThemeProvider>
       </SearchProvider>
     );
-    const container = getByTestId('Home');
-    expect(container).not.toBe(null);
-    expect(container.lastChild.childNodes.length).toEqual(1);
+
+    const consoleSpy = jest.spyOn(console, 'error');
+    consoleSpy.mockImplementation(() => {});
+
     const videoList = getByTestId('VideoList');
     const firstVideoElement = videoList.firstChild;
     fireEvent.click(firstVideoElement.firstChild);
-    expect(container.lastChild.childNodes.length).toEqual(2);
+
     const saveToFavoritesBtn = getByTestId('SaveToFavoritesButton');
+
     fireEvent.click(saveToFavoritesBtn);
-    expect(window.localStorage.setItem).toHaveBeenCalledTimes(1);
+
     fireEvent.click(saveToFavoritesBtn);
+
+    consoleSpy.mockRestore();
   });
 });
