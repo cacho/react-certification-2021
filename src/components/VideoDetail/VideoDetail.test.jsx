@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import VideoDetail from './VideoDetail.component';
 import SearchProvider from '../../providers/Search.provider';
 

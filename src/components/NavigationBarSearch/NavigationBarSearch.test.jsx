@@ -20,7 +20,6 @@ describe('<NavigationBarSearch />', () => {
   test('Fails without SearchProvider', () => {
     const consoleSpy = jest.spyOn(console, 'error');
     consoleSpy.mockImplementation(() => {});
-
     expect(() =>
       render(
         <ThemeProvider>

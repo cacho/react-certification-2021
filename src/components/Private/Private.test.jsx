@@ -1,27 +1,34 @@
-// import React from 'react';
-// import { render } from '@testing-library/react';
-// // import PortalModal from './PortalModal.component';
-// import { Route, Redirect } from 'react-router-dom';
-// import useAuth from '../../providers/Auth.provider';
-// import Private from './Private.component';
-// import AuthProvider from '../../providers/Auth.provider';
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import React from 'react';
+import { Route, Router, Switch } from 'react-router-dom';
+
+import Private from './Private.component';
+import AuthProvider from '../../providers/Auth.provider';
 
 // jest.mock('../../providers/Auth.provider');
-// jest.mock('react-router-dom');
+// jest.mock('useLocation');
 
 describe('<Private />', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
+  // beforeEach(() => {
+  //   jest.resetAllMocks();
+  // });
   test('Renders authenticated', () => {
-    // useAuth.mockReturnValue({ authenthicated: true });
-    // const { getByTestId } = render(
-    //   <AuthProvider>
-    //     <Private>
-    //       <div data-testid="filli">Autorized user</div>
-    //     </Private>
+    // const history = createMemoryHistory();
+    // render(
+    //   <AuthProvider {...{ authenticated: true }}>
+    //     <Router history={history}>
+    //       <Switch>
+    //         <Private exact path="/">
+    //           <div>test</div>
+    //         </Private>
+    //         <Route path="/restricted-access">
+    //           <div>restricted</div>
+    //         </Route>
+    //       </Switch>
+    //     </Router>
     //   </AuthProvider>
     // );
-    // expect(getByTestId('filli')).not.toBe(null);
+    // expect(screen.getByText(/start/i)).toBeInTheDocument();
   });
 });

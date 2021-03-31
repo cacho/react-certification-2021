@@ -26,12 +26,16 @@ function VideoDetail({ handle, isVideoDetailVisible }) {
   return (
     <Styled.Container videoDetail={isVideoDetailVisible} data-testid="VideoDetail">
       <div>
-        <button type="button" onClick={handle}>
+        <button type="button" onClick={handle} data-testid="CloseDetailButton">
           Close Detail
         </button>
       </div>
       <div>
-        <button type="button" onClick={saveToFavorites}>
+        <button
+          type="button"
+          onClick={saveToFavorites}
+          data-testid="SaveToFavoritesButton"
+        >
           Add to Favorites
         </button>
       </div>
