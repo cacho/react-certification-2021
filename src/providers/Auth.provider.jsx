@@ -28,7 +28,7 @@ function reducer(state, action) {
       storage.set(AUTH_USER_FAVORITES, []);
       return { ...state, authenticated: false };
     default:
-      throw new Error();
+      throw new Error('Invalid auth method');
   }
 }
 

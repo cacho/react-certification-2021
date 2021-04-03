@@ -17,7 +17,7 @@ function reducer(state, action) {
       return { selectedTheme: state.selectedTheme === 'light' ? 'dark' : 'light' };
 
     default:
-      throw new Error();
+      throw new Error('Invalid theme option');
   }
 }
 
