@@ -8,8 +8,11 @@ function NavigationBarUser() {
   const location = useLocation();
 
   return (
-    <Link to={{ pathname: '/login', state: { background: location } }}>
-      <Styled.Container data-testid="navigationBarUser">
+    <Link
+      to={{ pathname: '/login', state: { background: location } }}
+      data-testid="navigationBarUser"
+    >
+      <Styled.Container>
         <Styled.UserImage
           focusable="false"
           viewBox="0 0 24 24"

@@ -1,10 +1,9 @@
 import React from 'react';
-import { fireEvent, getByText, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Favorites from './Favorites.page';
 import SearchProvider from '../../providers/Search.provider';
-import ThemeProvider, { useTheme } from '../../providers/Theme.provider';
+import { useTheme } from '../../providers/Theme.provider';
 import mockToUseYoutubeAPI from '../../utils/mocks/youTubeResponse.json';
-import useYoutubeAPI from '../../hooks/useYoutubeAPI';
 import { storage } from '../../utils/storage';
 
 jest.mock('../../hooks/useYoutubeAPI');

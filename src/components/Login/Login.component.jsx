@@ -70,7 +70,7 @@ function Login() {
           </Styled.FormContainer>
         </Styled.Container>
       ) : (
-        <Styled.Container>
+        <Styled.Container data-testid="LoginFormComponent">
           <Styled.FormContainer>
             <Styled.FormHeader>
               <Styled.FormHeaderTitle>Login</Styled.FormHeaderTitle>

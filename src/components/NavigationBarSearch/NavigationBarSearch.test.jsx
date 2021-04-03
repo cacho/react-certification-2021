@@ -1,56 +1,63 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import { act, renderHook, WaitForNextUpdate } from '@testing-library/react-hooks';
+import { render } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react-hooks';
 
-import userEvent from '@testing-library/user-event';
 import { Simulate } from 'react-dom/test-utils';
 import NavigationBarSearch from './NavigationBarSearch.component';
 import SearchProvider, { useSearch } from '../../providers/Search.provider';
-import ThemeProvider from '../../providers/Theme.provider';
+import { useTheme } from '../../providers/Theme.provider';
+
+jest.mock('../../providers/Theme.provider');
 
 describe('<NavigationBarSearch />', () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
   test('Renders correctly', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'light' },
+      dispatch: jest.fn(),
+    });
     const { getByTestId } = render(
       <SearchProvider>
-        <ThemeProvider>
-          <NavigationBarSearch />
-        </ThemeProvider>
+        <NavigationBarSearch />
+      </SearchProvider>
+    );
+    expect(getByTestId('NavigationBarSearch')).not.toBe(null);
+  });
+  test('Renders correctly dark', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'dark' },
+      dispatch: jest.fn(),
+    });
+    const { getByTestId } = render(
+      <SearchProvider>
+        <NavigationBarSearch />
       </SearchProvider>
     );
     expect(getByTestId('NavigationBarSearch')).not.toBe(null);
   });
   test('Fails without SearchProvider', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'light' },
+      dispatch: jest.fn(),
+    });
     const consoleSpy = jest.spyOn(console, 'error');
     consoleSpy.mockImplementation(() => {});
-    expect(() =>
-      render(
-        <ThemeProvider>
-          <NavigationBarSearch />
-        </ThemeProvider>
-      )
-    ).toThrowError(`Can't use "useSearch" without an SearchProvider!`);
-    consoleSpy.mockRestore();
-  });
-  test('Fails without ThemeProvider', () => {
-    const consoleSpy = jest.spyOn(console, 'error');
-    consoleSpy.mockImplementation(() => {});
-
-    expect(() =>
-      render(
-        <SearchProvider>
-          <NavigationBarSearch />
-        </SearchProvider>
-      )
-    ).toThrowError(`Can't use "useTheme" without an ThemeProvider!`);
+    expect(() => render(<NavigationBarSearch />)).toThrowError(
+      `Can't use "useSearch" without an SearchProvider!`
+    );
     consoleSpy.mockRestore();
   });
   test('Triggers Submit event', () => {
     const searchSubmitedMock = jest.fn();
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'light' },
+      dispatch: jest.fn(),
+    });
     const { getByTestId } = render(
       <SearchProvider searchSubmited={searchSubmitedMock()}>
-        <ThemeProvider>
-          <NavigationBarSearch />
-        </ThemeProvider>
+        <NavigationBarSearch />
       </SearchProvider>
     );
     const form = getByTestId('NavigationBarSearch');
@@ -60,11 +67,13 @@ describe('<NavigationBarSearch />', () => {
     expect(searchSubmitedMock).toBeCalled();
   });
   test('Triggers onChange events with value', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'light' },
+      dispatch: jest.fn(),
+    });
     const { getByTestId } = render(
       <SearchProvider>
-        <ThemeProvider>
-          <NavigationBarSearch />
-        </ThemeProvider>
+        <NavigationBarSearch />
       </SearchProvider>
     );
     const form = getByTestId('NavigationBarSearch');
@@ -73,11 +82,13 @@ describe('<NavigationBarSearch />', () => {
     Simulate.change(searchField, { value: 'hola' });
   });
   test('Triggers onChange events empity value', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'light' },
+      dispatch: jest.fn(),
+    });
     const { getByTestId } = render(
       <SearchProvider>
-        <ThemeProvider>
-          <NavigationBarSearch />
-        </ThemeProvider>
+        <NavigationBarSearch />
       </SearchProvider>
     );
     const form = getByTestId('NavigationBarSearch');
@@ -85,15 +96,14 @@ describe('<NavigationBarSearch />', () => {
 
     Simulate.change(searchField, { value: '' });
   });
-  test('Triggers onChange events empity value on provider', async () => {
+  test('Triggers onChange events empity value on provider', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'light' },
+      dispatch: jest.fn(),
+    });
     const wrapper = ({ children }) => <SearchProvider>{children}</SearchProvider>;
     const { result } = renderHook(() => useSearch(), { wrapper });
-    render(
-      <ThemeProvider>
-        <NavigationBarSearch />
-      </ThemeProvider>,
-      { wrapper }
-    );
+    render(<NavigationBarSearch />, { wrapper });
 
     act(() => {
       result.current.dispatch({
@@ -102,7 +112,6 @@ describe('<NavigationBarSearch />', () => {
       });
     });
 
-    await WaitForNextUpdate;
     expect(result.current.searchState.searchTerm).toEqual('test');
   });
   test('UseSearch throw error', async () => {

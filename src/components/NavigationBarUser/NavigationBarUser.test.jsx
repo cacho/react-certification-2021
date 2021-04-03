@@ -2,27 +2,35 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { HashRouter } from 'react-router-dom';
 import NavigationBarUser from './NavigationBarUser.component';
-import ThemeProvider from '../../providers/Theme.provider';
+import { useTheme } from '../../providers/Theme.provider';
+
+jest.mock('../../providers/Theme.provider');
 
 describe('<NavigationBarUser />', () => {
   test('Renders correctly', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'light' },
+      dispatch: jest.fn(),
+    });
     const { getByTestId } = render(
-      <ThemeProvider>
-        <HashRouter>
-          <NavigationBarUser />
-        </HashRouter>
-      </ThemeProvider>
+      <HashRouter>
+        <NavigationBarUser />
+      </HashRouter>
     );
     const container = getByTestId('navigationBarUser');
     expect(container).not.toBe(null);
   });
-  test('Fails without ThemeProvider', () => {
-    const consoleSpy = jest.spyOn(console, 'error');
-    consoleSpy.mockImplementation(() => {});
-
-    expect(() => render(<NavigationBarUser />)).toThrowError(
-      `Can't use "useTheme" without an ThemeProvider!`
+  test('Renders dark', () => {
+    useTheme.mockReturnValue({
+      state: { selectedTheme: 'dark' },
+      dispatch: jest.fn(),
+    });
+    const { getByTestId } = render(
+      <HashRouter>
+        <NavigationBarUser />
+      </HashRouter>
     );
-    consoleSpy.mockRestore();
+    const container = getByTestId('navigationBarUser');
+    expect(container).not.toBe(null);
   });
 });
