@@ -62,7 +62,11 @@ function Login() {
                   />
                   <Styled.Label htmlFor="password">Password</Styled.Label>
                 </Styled.RowContainer>
-                <Styled.SendButton aria-label="Login" type="submit">
+                <Styled.SendButton
+                  data-testid="LogInFormButton"
+                  aria-label="Login"
+                  type="submit"
+                >
                   Login
                 </Styled.SendButton>
               </Styled.Form>
@@ -70,7 +74,7 @@ function Login() {
           </Styled.FormContainer>
         </Styled.Container>
       ) : (
-        <Styled.Container data-testid="LoginFormComponent">
+        <Styled.Container data-testid="LogOutFormComponent">
           <Styled.FormContainer>
             <Styled.FormHeader>
               <Styled.FormHeaderTitle>Login</Styled.FormHeaderTitle>
@@ -82,7 +86,9 @@ function Login() {
             </Styled.FormHeader>
             <Styled.FormBody>Already logged user</Styled.FormBody>
             <Styled.FormFooter>
-              <Styled.SendButton onClick={sendLogout}>Logout</Styled.SendButton>
+              <Styled.SendButton data-testid="LogOutFormButton" onClick={sendLogout}>
+                Logout
+              </Styled.SendButton>
             </Styled.FormFooter>
           </Styled.FormContainer>
         </Styled.Container>
