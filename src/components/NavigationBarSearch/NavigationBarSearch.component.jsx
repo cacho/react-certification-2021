@@ -1,16 +1,36 @@
 import React from 'react';
+import { debounce } from 'debounce';
+import { useSearch } from '../../providers/Search.provider';
 import Styled from './NavigationBarSearch.styled';
+import { useTheme } from '../../providers/Theme.provider';
 
 function NavigationBarSearch() {
+  const { state } = useTheme();
+  const { dispatch } = useSearch();
+
+  const debouncedSearch = debounce((v) => {
+    const searchFor = v === '' ? 'wizeline' : v;
+    dispatch({ type: 'SEARCH_TERM_CHANGE', payload: searchFor });
+  }, 1000);
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    debouncedSearch(value);
+  };
   return (
-    <Styled.Form className="d-flex" data-testid="NavigationBarSearch">
+    <Styled.Form
+      data-testid="NavigationBarSearch"
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <Styled.Field
-        className="form-control me-2"
         type="search"
         placeholder="Search"
         aria-label="Search"
+        onChange={handleChange}
       />
-      <Styled.Button className="btn btn-outline-light" type="submit">
+      <Styled.Button type="submit" theme={state.selectedTheme}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"

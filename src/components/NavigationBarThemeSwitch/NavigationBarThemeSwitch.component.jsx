@@ -1,17 +1,18 @@
 import React from 'react';
 import Styled from './NavigationBarThemeSwitch.styled';
+import { useTheme } from '../../providers/Theme.provider';
 
 function NavigationBarThemeSwitch() {
+  const { state, dispatch } = useTheme();
+  const handleSwitch = () => {
+    dispatch({ type: 'TOGGLE_THEME' });
+  };
   return (
-    <Styled.Container className="nav-item" data-testid="NavigationBarThemeSwitch">
-      <Styled.Content className="form-check form-switch">
-        <Styled.Label className="form-check-label" htmlFor="themeSwitchOptions">
-          <Styled.Input
-            className="form-check-input"
-            type="checkbox"
-            id="themeSwitchOptions"
-          />
-          Dark Theme
+    <Styled.Container data-testid="NavigationBarThemeSwitch">
+      <Styled.Content>
+        <Styled.Label theme={state.selectedTheme} htmlFor="themeSwitchOptions">
+          <Styled.Input type="checkbox" id="themeSwitchOptions" onChange={handleSwitch} />
+          {state.selectedTheme === 'dark' ? 'Light' : 'Dark'} Theme
         </Styled.Label>
       </Styled.Content>
     </Styled.Container>

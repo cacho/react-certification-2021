@@ -1,18 +1,59 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import VideoList from '../../components/VideoList';
-import MokedResponse from '../../utils/mocks/youTubeResponse.json';
+import useYoutubeAPI from '../../hooks/useYoutubeAPI';
+import { useSearch } from '../../providers/Search.provider';
+// import MockedYoutubeResponse from '../../utils/mocks/youTubeResponse.json';
 import { filterItemsByKind } from '../../utils/contenFilter';
+import Styled from './Home.page.styled';
 
-const { items } = MokedResponse;
-const videoItems = filterItemsByKind(items, 'video');
+import VideoDetail from '../../components/VideoDetail';
+import { useTheme } from '../../providers/Theme.provider';
+
 function HomePage() {
   const sectionRef = useRef(null);
+  const { state } = useTheme();
+  const { searchState } = useSearch();
+  const { searchTerm } = searchState;
+  const { searchResult, loading } = useYoutubeAPI(searchTerm);
+  // const searchResult = MockedYoutubeResponse;
+  // const loading = false;
+  const [items, setItems] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
+  const [isVideoDetailVisible, setIsVideoDetailVisible] = useState(false);
 
+  const hideVideoDetail = () => {
+    setIsVideoDetailVisible(false);
+  };
+  const showVideoDetail = () => {
+    setIsVideoDetailVisible(true);
+  };
+  useEffect(() => {
+    setItems(searchResult?.items);
+    if (items) {
+      setFilteredList(filterItemsByKind(items, 'video'));
+    }
+  }, [searchResult, items]);
+
+  if (loading) return <p>Loading ....</p>;
   return (
-    <section className="container" ref={sectionRef} data-testid="Home">
-      <h1>Hello stranger!</h1>
-      <VideoList items={videoItems} />
-    </section>
+    <Styled.Container theme={state.selectedTheme} ref={sectionRef} data-testid="Home">
+      <Styled.Row>
+        <h1>Hello stranger!</h1>
+      </Styled.Row>
+      <Styled.Row>
+        {isVideoDetailVisible && (
+          <VideoDetail
+            handle={hideVideoDetail}
+            isVideoDetailVisible={isVideoDetailVisible}
+          />
+        )}
+        <VideoList
+          items={filteredList}
+          handle={showVideoDetail}
+          isVideoDetailVisible={isVideoDetailVisible}
+        />
+      </Styled.Row>
+    </Styled.Container>
   );
 }
 
