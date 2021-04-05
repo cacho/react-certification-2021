@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Modal } from 'bootstrap';
 import Styled from './Login.styled';
 import loginAPI from '../../utils/mocks/login.api';
@@ -7,17 +7,21 @@ import { useAuth } from '../../providers/Auth.provider';
 function Login() {
   const { state, dispatch } = useAuth();
   const { authenticated } = state;
+  const userNameField = useRef();
+  const passwordField = useRef();
 
   const sendLogin = async (event) => {
     event.preventDefault();
-    const userName = event.target.username.value;
-    const password = event.target.password.value;
+    const userName = userNameField.current.value;
+    const password = passwordField.current.value;
     await loginAPI(userName, password)
       .then(() => {
         dispatch({ type: 'AUTH_LOG_IN' });
         const myModalEl = document.getElementById('portalModalContainer');
         const modal = Modal.getInstance(myModalEl);
-        modal.hide();
+        if (modal) {
+          modal.hide();
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -26,7 +30,9 @@ function Login() {
     dispatch({ type: 'AUTH_LOG_OUT' });
     const myModalEl = document.getElementById('portalModalContainer');
     const modal = Modal.getInstance(myModalEl);
-    modal.hide();
+    if (modal) {
+      modal.hide();
+    }
   };
 
   return (
@@ -50,6 +56,7 @@ function Login() {
                     type="text"
                     placeholder="User Name"
                     id="username"
+                    ref={userNameField}
                   />
                   <Styled.Label htmlFor="username">User Name</Styled.Label>
                 </Styled.RowContainer>
@@ -59,6 +66,7 @@ function Login() {
                     type="password"
                     placeholder="password"
                     id="password"
+                    ref={passwordField}
                   />
                   <Styled.Label htmlFor="password">Password</Styled.Label>
                 </Styled.RowContainer>
